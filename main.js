@@ -7,16 +7,22 @@ console.log("hello");
 //    the function takes the name, author, status(to read default)
 // Create a function that deletes the book from the array
 //    takes the book Id, and remove the corespondent book
-
+function idGenerator() {
+  let i = 0;
+  return function () {
+    return i++;
+  };
+}
+const generateId = idGenerator();
 const library = [];
 const bookStatus = ["TO READ", "READING", "COMPLETED"];
 
 function Book(name, author, status = bookStatus[0]) {
-  let bookId = library.length;
+  let bookId = new Date().getTime();
   this.name = name;
   this.author = author;
   this.status = status;
-  this.Id = bookId;
+  this.ID = generateId();
 }
 
 function addBook(name, author, status) {
@@ -28,4 +34,19 @@ function addBook(name, author, status) {
     library.push(newBook);
   }
 }
-function deleteBook(bookId) {}
+addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
+addBook("To Kill a Mockingbird", "Harper Lee", "Completed");
+addBook("1984", "George Orwell", "To Read");
+addBook("The Catcher in the Rye", "J.D. Salinger", "Completed");
+addBook("The Hobbit", "J.R.R. Tolkien", "To Read");
+addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Reading");
+
+function deleteBook(bookId) {
+  for (let book of library) {
+    if (book.ID == bookId) {
+      let index = library.indexOf(book);
+      library.splice(index, 1);
+    }
+  }
+}
+// Go over the library, if the current item in the loop has the bookID as id, splice it
