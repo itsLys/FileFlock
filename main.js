@@ -9,6 +9,7 @@ const library = [];
 const bookStatus = ["TO READ", "READING", "COMPLETED"];
 const coverPlaceholder =
   "https://www.marytribble.com/wp-content/uploads/2020/12/book-cover-placeholder.png";
+
 class Book {
   constructor(name, author, status = bookStatus[0], cover = coverPlaceholder) {
     this.name = name;
@@ -19,8 +20,11 @@ class Book {
   }
   changeStatus(newStatus) {
     // this.status = newStatus;
+    if (bookStatus.indexOf(newStatus.toUpperCase()) == -1) {
+      return "please enter a valid status"; // turn into a checking function maybe
+    }
     for (const status of bookStatus) {
-      if (status.toUpperCase == newStatus) {
+      if (newStatus.toUpperCase() == status) {
         this.status = status;
       } // for each status of bookStatus, if newStatus is equal to status, this status is status
       //
@@ -50,22 +54,6 @@ function deleteBook(bookId) {
   }
 }
 
-// function changeCover(bookId, coverLink) {
-//   for (const book of library) {
-//     if (book.ID == bookId) {
-//       book.cover = coverLink;
-//     }
-//   }
-// }
-
-// function changeStatus(bookId, newStatus) {
-//   for (const book of library) {
-//     if (book.ID == bookId) {
-//       book.status = newStatus;
-//     }
-//   }
-// }
-
 addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
 addBook("To Kill a Mockingbird", "Harper Lee", "Completed");
 addBook("1984", "George Orwell", "To Read");
@@ -77,3 +65,23 @@ addBook(
 );
 addBook("The Hobbit", "J.R.R. Tolkien", "To Read");
 addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Reading");
+
+const shelf = document.querySelector(".shelf");
+const bookCard = document.createElement("div");
+const bookTitle = document.createElement("h1");
+const bookAuthor = document.createElement("span");
+const bookStatusToggle = document.createElement("button");
+
+bookCard.appendChild(bookTitle);
+bookCard.appendChild(bookAuthor);
+bookCard.appendChild(bookStatusToggle);
+
+function renderBooks() {
+  for (let book of library) {
+    bookTitle.textContent = book.name;
+    bookAuthor.textContent = book.author;
+    bookStatusToggle.textContent = book.status;
+    shelf.appendChild(bookCard.cloneNode(true));
+  }
+}
+renderBooks();

@@ -8,16 +8,31 @@
     <script src="main.js" defer></script>
   </head>
   <body>
-    <button type="button">New</button>
-    <form action="">
-      <label for="title">Title</label>
-      <input type="text" id="title" name="title" />
+    <button class="new-book-btn" type="button">New Book</button>
 
-      <label for="author">Author</label>
-      <input type="text" id="author" name="author" />
+    <div class="shelf"></div>
 
-      <label for=""></label>
-      <input type="text" />
-    </form>
+    <div class="form-con">
+      <form class="book-form">
+        <label for="book-name">Book Name</label>
+        <input type="text" name="book-name" id="book-name" />
+
+        <label for="author-name">Author</label>
+        <input type="text" name="author-name" id="author-name" />
+
+        <label for="cover">cover</label>
+        <input type="url" name="cover" id="cover" />
+
+        <fieldset>
+          <legend>status</legend>
+          <input type="radio" name="status" id="read" />
+          <label for="read">Read</label>
+          <input type="radio" name="status" id="not-read" checked />
+          <label for="not-read">Not Read</label>
+        </fieldset>
+        <button class="submit" type="button">Submit</button>
+        <button class="close-btn" type="button">close</button>
+      </form>
+    </div>
   </body>
 </html>
