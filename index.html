@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FileFlock</title>
-    <link rel="stylesheet" href="css.css" />
-    <script src="main.js" defer></script>
-  </head>
-  <body>
-    <button class="new-book-btn" type="button">New Book</button>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>FileFlock</title>
+		<link rel="stylesheet" href="css.css" />
+		<script src="main.js" defer></script>
+	</head>
+	<body>
+		<button class="new-book-btn" type="button">New Book</button>
 
-    <div class="shelf"></div>
+		<div class="shelf"></div>
 
-    <div class="form-con">
-      <form class="book-form">
-        <label for="book-name">Book Name</label>
-        <input type="text" name="book-name" id="book-name" />
+		<div class="form-con">
+			<form class="book-form">
+				<label for="book-name">Book Name</label>
+				<input type="text" name="book-name" id="book-name" />
 
-        <label for="author-name">Author</label>
-        <input type="text" name="author-name" id="author-name" />
+				<label for="author-name">Author</label>
+				<input type="text" name="author-name" id="author-name" />
 
-        <label for="cover">cover</label>
-        <input type="url" name="cover" id="cover" />
+				<label for="cover">cover</label>
+				<input type="url" name="cover" id="cover" />
 
-        <fieldset>
-          <legend>status</legend>
-          <input type="radio" name="status" id="read" />
-          <label for="read">Read</label>
-          <input type="radio" name="status" id="not-read" checked />
-          <label for="not-read">Not Read</label>
-        </fieldset>
-        <button class="submit" type="button">Submit</button>
-        <button class="close-btn" type="button">close</button>
-      </form>
-    </div>
-  </body>
+				<fieldset>
+					<legend>status</legend>
+					<input type="radio" name="status" id="read" />
+					<label for="read">Read</label>
+					<input type="radio" name="status" id="not-read" checked />
+					<label for="not-read">Not Read</label>
+				</fieldset>
+				<button class="submit-btn" type="submit">Submit</button>
+				<button class="close-btn" type="button">close</button>
+			</form>
+		</div>
+	</body>
 </html>
