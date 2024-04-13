@@ -1,14 +1,34 @@
-function idGenerator() {
-	let i = 0;
-	return function () {
-		return i++;
-	};
-}
 const generateId = idGenerator();
 const library = [];
 const bookStatus = ["TO READ", "READING", "COMPLETED"];
 const coverPlaceholder =
 	"https://www.marytribble.com/wp-content/uploads/2020/12/book-cover-placeholder.png";
+const shelf = document.querySelector(".shelf");
+const bookCard = document.createElement("div");
+const bookTitle = document.createElement("h1");
+const bookAuthor = document.createElement("span");
+const bookStatusToggle = document.createElement("button");
+const bookDeleteButton = document.createElement("button");
+const newBookForm = document.querySelector(".book-form");
+const bookNameInput = document.querySelector("#book-name");
+const bookAuthorInput = document.querySelector("#author-name");
+const newBookButton = document.querySelector(".new-book-btn");
+const submitButton = document.querySelector(".submit-btn");
+const closeButton = document.querySelector("close-btn");
+
+bookDeleteButton.classList.add("delete");
+bookDeleteButton.textContent = "delete";
+
+bookCard.appendChild(bookTitle);
+bookCard.appendChild(bookAuthor);
+bookCard.appendChild(bookStatusToggle);
+bookCard.appendChild(bookDeleteButton);
+
+submitButton.addEventListener("click", submitBook);
+shelf.addEventListener("click", (e) => {
+	if (e.target.matches(".delete"))
+		deleteBook(Number(e.target.parentNode.getAttribute("data-id")));
+});
 
 class Book {
 	constructor(name, author, status, cover) {
@@ -32,6 +52,13 @@ class Book {
 	changeCover(coverLink) {
 		this.cover = coverLink;
 	}
+}
+
+function idGenerator() {
+	let i = 0;
+	return function () {
+		return i++;
+	};
 }
 
 function addBook(
@@ -60,32 +87,6 @@ function deleteBook(bookId) {
 	renderBooks();
 }
 
-addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
-addBook("To Kill a Mockingbird", "Harper Lee", "Completed");
-addBook("1984", "George Orwell", "To Read");
-addBook(
-	"The Catcher in the Rye",
-	"J.D. Salinger",
-	"Completed",
-	"https://cdn.britannica.com/94/181394-050-2F76F7EE/Reproduction-cover-edition-The-Catcher-in-the.jpg"
-);
-addBook("The Hobbit", "J.R.R. Tolkien", "To Read");
-addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Reading");
-
-const shelf = document.querySelector(".shelf");
-const bookCard = document.createElement("div");
-const bookTitle = document.createElement("h1");
-const bookAuthor = document.createElement("span");
-const bookStatusToggle = document.createElement("button");
-const bookDeleteButton = document.createElement("button");
-bookDeleteButton.classList.add("delete");
-bookDeleteButton.textContent = "delete";
-
-bookCard.appendChild(bookTitle);
-bookCard.appendChild(bookAuthor);
-bookCard.appendChild(bookStatusToggle);
-bookCard.appendChild(bookDeleteButton);
-
 function renderBooks() {
 	shelf.textContent = "";
 
@@ -99,17 +100,6 @@ function renderBooks() {
 	}
 }
 
-renderBooks();
-const newBookForm = document.querySelector(".book-form");
-const bookNameInput = document.querySelector("#book-name");
-const bookAuthorInput = document.querySelector("#author-name");
-// const bookCoverInput = document.querySelector("#cover");
-const newBookButton = document.querySelector(".new-book-btn");
-const submitButton = document.querySelector(".submit-btn");
-const closeButton = document.querySelector("close-btn");
-
-submitButton.addEventListener("click", submitBook);
-
 function submitBook(e) {
 	if (bookNameInput.value) {
 		e.preventDefault();
@@ -119,14 +109,16 @@ function submitBook(e) {
 	}
 }
 
-// Delete Button
-shelf.addEventListener("click", (e) => {
-	if (e.target.matches(".delete"))
-		deleteBook(Number(e.target.parentNode.getAttribute("data-id")));
-});
-// validation
-// click del, remove the book,
-// remove the book with the ID
-// remove the book from array
-// render
-// Add tasks for next time
+addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
+addBook("To Kill a Mockingbird", "Harper Lee", "Completed");
+addBook("1984", "George Orwell", "To Read");
+addBook(
+	"The Catcher in the Rye",
+	"J.D. Salinger",
+	"Completed",
+	"https://cdn.britannica.com/94/181394-050-2F76F7EE/Reproduction-cover-edition-The-Catcher-in-the.jpg"
+);
+addBook("The Hobbit", "J.R.R. Tolkien", "To Read");
+addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Reading");
+
+renderBooks();
