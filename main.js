@@ -56,6 +56,8 @@ function deleteBook(bookId) {
 			library.splice(index, 1);
 		}
 	}
+
+	renderBooks();
 }
 
 addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
@@ -75,27 +77,30 @@ const bookCard = document.createElement("div");
 const bookTitle = document.createElement("h1");
 const bookAuthor = document.createElement("span");
 const bookStatusToggle = document.createElement("button");
+const bookDeleteButton = document.createElement("button");
+bookDeleteButton.classList.add("delete");
+bookDeleteButton.textContent = "delete";
 
 bookCard.appendChild(bookTitle);
 bookCard.appendChild(bookAuthor);
 bookCard.appendChild(bookStatusToggle);
+bookCard.appendChild(bookDeleteButton);
 
 function renderBooks() {
+	shelf.textContent = "";
+
 	for (let book of library) {
 		bookTitle.textContent = book.name;
 		bookAuthor.textContent = book.author;
 		bookStatusToggle.textContent = book.status;
+
+		bookCard.setAttribute("data-id", book.ID);
 		shelf.appendChild(bookCard.cloneNode(true));
 	}
 }
 
 renderBooks();
-
-// Enter book name, author, cover link
-//status, default
-// upon submitting, div = '', push book to library
-// call render books
-
+const newBookForm = document.querySelector(".book-form");
 const bookNameInput = document.querySelector("#book-name");
 const bookAuthorInput = document.querySelector("#author-name");
 // const bookCoverInput = document.querySelector("#cover");
@@ -106,8 +111,22 @@ const closeButton = document.querySelector("close-btn");
 submitButton.addEventListener("click", submitBook);
 
 function submitBook(e) {
-	e.preventDefault();
-	addBook(bookNameInput.value, bookAuthorInput.value);
-	shelf.textContent = "";
-	renderBooks();
+	if (bookNameInput.value) {
+		e.preventDefault();
+		addBook(bookNameInput.value, bookAuthorInput.value);
+		renderBooks();
+		newBookForm.reset();
+	}
 }
+
+// Delete Button
+shelf.addEventListener("click", (e) => {
+	if (e.target.matches(".delete"))
+		deleteBook(Number(e.target.parentNode.getAttribute("data-id")));
+});
+// validation
+// click del, remove the book,
+// remove the book with the ID
+// remove the book from array
+// render
+// Add tasks for next time

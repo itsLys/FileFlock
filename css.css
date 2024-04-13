@@ -1,12 +1,15 @@
 .shelf {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2em;
 }
 .shelf button {
-  display: block;
+	display: block;
 }
 
 .shelf > div {
-  border: 1px solid black;
+	border: 1px solid black;
+}
+h1 {
+	font-size: 1.25rem;
 }
