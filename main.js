@@ -122,3 +122,24 @@ addBook("The Hobbit", "J.R.R. Tolkien", "To Read");
 addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Reading");
 
 renderBooks();
+
+// for each status in arr, create a label with for arr[i],
+// input type radio with id arr[i] and name is status
+
+const radioButton = document.createElement("input");
+const radioLabel = document.createElement("label");
+const statusField = newBookForm.querySelector("fieldset");
+
+radioButton.setAttribute("type", "radio");
+radioButton.setAttribute("name", "status");
+
+function renderStatus() {
+	for (let status of bookStatus) {
+		radioLabel.setAttribute("for", status);
+		radioLabel.textContent = status;
+		radioButton.id = status;
+		statusField.appendChild(radioButton.cloneNode(true));
+		statusField.appendChild(radioLabel.cloneNode(true));
+	}
+}
+renderStatus();
