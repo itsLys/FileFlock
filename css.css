@@ -13,3 +13,24 @@
 h1 {
 	font-size: 1.25rem;
 }
+.form-con {
+	background-color: rgba(0, 0, 0, 0.463);
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+.book-form {
+	background-color: rgb(185, 185, 185);
+	position: absolute;
+	left: 10%;
+	right: 10%;
+	top: 10%;
+	bottom: 10%;
+	padding: 5%;
+}
+.open {
+	display: block;
+}

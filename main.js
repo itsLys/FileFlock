@@ -10,14 +10,22 @@ const bookAuthor = document.createElement("span");
 const bookStatusToggle = document.createElement("button");
 const bookDeleteButton = document.createElement("button");
 const newBookForm = document.querySelector(".book-form");
+
+const formContainer = document.querySelector(".form-con");
 const bookNameInput = document.querySelector("#book-name");
 const bookAuthorInput = document.querySelector("#author-name");
 const newBookButton = document.querySelector(".new-book-btn");
 const submitButton = document.querySelector(".submit-btn");
 const closeButton = document.querySelector("close-btn");
+const radioButton = document.createElement("input");
+const radioLabel = document.createElement("label");
+const statusField = newBookForm.querySelector("fieldset");
+const radioButtons = document.getElementsByName("status");
 
 bookDeleteButton.classList.add("delete");
 bookDeleteButton.textContent = "delete";
+radioButton.setAttribute("type", "radio");
+radioButton.setAttribute("name", "status");
 
 bookCard.appendChild(bookTitle);
 bookCard.appendChild(bookAuthor);
@@ -115,6 +123,18 @@ function submitBook(e) {
 	}
 }
 
+function renderStatus() {
+	for (let status of bookStatus) {
+		radioLabel.setAttribute("for", status);
+		radioLabel.textContent = status;
+		radioButton.id = status;
+		statusField.appendChild(radioButton.cloneNode(true));
+		statusField.appendChild(radioLabel.cloneNode(true));
+	}
+	const toReadRadioButton = document.querySelector("#to-read");
+	toReadRadioButton.setAttribute("checked", "");
+}
+
 addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
 addBook("To Kill a Mockingbird", "Harper Lee", "Completed");
 addBook("1984", "George Orwell", "To-Read");
@@ -128,30 +148,17 @@ addBook("The Hobbit", "J.R.R. Tolkien", "To-Read");
 addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling");
 
 renderBooks();
-
-// for each status in arr, create a label with for arr[i],
-// input type radio with id arr[i] and name is status
-
-const radioButton = document.createElement("input");
-const radioLabel = document.createElement("label");
-const statusField = newBookForm.querySelector("fieldset");
-const radioButtons = document.getElementsByName("status");
-
-radioButton.setAttribute("type", "radio");
-radioButton.setAttribute("name", "status");
-
-function renderStatus() {
-	for (let status of bookStatus) {
-		radioLabel.setAttribute("for", status);
-		radioLabel.textContent = status;
-		radioButton.id = status;
-		statusField.appendChild(radioButton.cloneNode(true));
-		statusField.appendChild(radioLabel.cloneNode(true));
-	}
-	const toReadRadioButton = document.querySelector("#to-read");
-	toReadRadioButton.setAttribute("checked", "");
-}
 renderStatus();
 
+document.addEventListener("click", controlModal);
+
+function controlModal(e) {
+	if (e.target.id == "new-book-btn") {
+		formContainer.classList.add("open");
+	}
+	if (e.target.id == "close-btn" || e.target == formContainer) {
+		formContainer.classList.remove("open");
+	}
+}
+
 // to do [note to self]
-//
