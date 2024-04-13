@@ -1,6 +1,6 @@
 const generateId = idGenerator();
 const library = [];
-const bookStatus = ["TO READ", "READING", "COMPLETED"];
+const bookStatus = ["to-read", "reading", "completed"];
 const coverPlaceholder =
 	"https://www.marytribble.com/wp-content/uploads/2020/12/book-cover-placeholder.png";
 const shelf = document.querySelector(".shelf");
@@ -40,11 +40,11 @@ class Book {
 	}
 
 	changeStatus(newStatus) {
-		if (bookStatus.indexOf(newStatus.toUpperCase()) == -1) {
+		if (bookStatus.indexOf(newStatus.toLowerCase()) == -1) {
 			return "please enter a valid status"; // turn into a checking function maybe
 		}
 		for (const status of bookStatus) {
-			if (newStatus.toUpperCase() == status) {
+			if (newStatus.toLowerCase() == status) {
 				this.status = status;
 			}
 		}
@@ -67,7 +67,7 @@ function addBook(
 	status = bookStatus[0],
 	cover = coverPlaceholder
 ) {
-	const newBookStatus = bookStatus.indexOf(status.toUpperCase());
+	const newBookStatus = bookStatus.indexOf(status.toLowerCase());
 	if (newBookStatus == -1) {
 		console.log("please enter a valid status");
 	} else {
@@ -103,7 +103,13 @@ function renderBooks() {
 function submitBook(e) {
 	if (bookNameInput.value) {
 		e.preventDefault();
-		addBook(bookNameInput.value, bookAuthorInput.value);
+		let status;
+		for (let radio of radioButtons) {
+			if (radio.checked) {
+				status = radio.id;
+			}
+		}
+		addBook(bookNameInput.value, bookAuthorInput.value, status);
 		renderBooks();
 		newBookForm.reset();
 	}
@@ -111,15 +117,15 @@ function submitBook(e) {
 
 addBook("The Great Gatsby", "F. Scott Fitzgerald", "Reading");
 addBook("To Kill a Mockingbird", "Harper Lee", "Completed");
-addBook("1984", "George Orwell", "To Read");
+addBook("1984", "George Orwell", "To-Read");
 addBook(
 	"The Catcher in the Rye",
 	"J.D. Salinger",
 	"Completed",
 	"https://cdn.britannica.com/94/181394-050-2F76F7EE/Reproduction-cover-edition-The-Catcher-in-the.jpg"
 );
-addBook("The Hobbit", "J.R.R. Tolkien", "To Read");
-addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Reading");
+addBook("The Hobbit", "J.R.R. Tolkien", "To-Read");
+addBook("Harry Potter and the Sorcerer's Stone", "J.K. Rowling");
 
 renderBooks();
 
@@ -129,6 +135,7 @@ renderBooks();
 const radioButton = document.createElement("input");
 const radioLabel = document.createElement("label");
 const statusField = newBookForm.querySelector("fieldset");
+const radioButtons = document.getElementsByName("status");
 
 radioButton.setAttribute("type", "radio");
 radioButton.setAttribute("name", "status");
@@ -141,5 +148,10 @@ function renderStatus() {
 		statusField.appendChild(radioButton.cloneNode(true));
 		statusField.appendChild(radioLabel.cloneNode(true));
 	}
+	const toReadRadioButton = document.querySelector("#to-read");
+	toReadRadioButton.setAttribute("checked", "");
 }
 renderStatus();
+
+// to do [note to self]
+//
